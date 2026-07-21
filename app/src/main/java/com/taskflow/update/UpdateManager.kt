@@ -69,28 +69,34 @@ object UpdateManager {
         return withContext(Dispatchers.IO) {
             try {
                 val config = fetchReleaseConfig()
-                    ?: return@withContext checkGitHubRelease(showNotification)
-
-                if (config.versionCode > BuildConfig.VERSION_CODE) {
-                    if (showNotification) {
-                        NotificationHelper.showUpdateNotification(
-                            context,
-                            config.versionName,
-                            config.changelog
+                if (config != null) {
+                    if (config.versionCode > BuildConfig.VERSION_CODE) {
+                        if (showNotification) {
+                            NotificationHelper.showUpdateNotification(
+                                context,
+                                config.versionName,
+                                config.changelog
+                            )
+                        }
+                        return@withContext UpdateResult(
+                            hasUpdate = true,
+                            versionName = config.versionName,
+                            changelog = config.changelog,
+                            downloadUrl = config.apkUrl,
+                            apkHash = config.apkHash
                         )
+                    } else {
+                        return@withContext UpdateResult(hasUpdate = false)
                     }
-                    UpdateResult(
-                        hasUpdate = true,
-                        versionName = config.versionName,
-                        changelog = config.changelog,
-                        downloadUrl = config.apkUrl,
-                        apkHash = config.apkHash
-                    )
-                } else {
-                    UpdateResult(hasUpdate = false)
                 }
+
+                return@withContext checkGitHubRelease(showNotification)
             } catch (e: Exception) {
-                UpdateResult(hasUpdate = false)
+                try {
+                    return@withContext checkGitHubRelease(showNotification)
+                } catch (e2: Exception) {
+                    return@withContext UpdateResult(hasUpdate = false)
+                }
             }
         }
     }
