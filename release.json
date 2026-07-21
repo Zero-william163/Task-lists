@@ -1,0 +1,8 @@
+{
+  "versionCode": 1,
+  "versionName": "1.0.0",
+  "apkUrl": "https://github.com/your-username/TaskFlow/releases/download/v1.0.0/app-release.apk",
+  "changelog": "首次发布\n- 完整的任务管理功能\n- 支持提醒、小组件\n- 支持自动更新检测",
+  "forceUpdate": false,
+  "apkHash": ""
+}
