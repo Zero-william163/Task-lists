@@ -1,8 +1,8 @@
 {
-  "versionCode": 1,
-  "versionName": "1.0.0",
-  "apkUrl": "https://github.com/your-username/TaskFlow/releases/download/v1.0.0/app-release.apk",
-  "changelog": "首次发布\n- 完整的任务管理功能\n- 支持提醒、小组件\n- 支持自动更新检测",
+  "versionCode": 4,
+  "versionName": "1.3.0",
+  "apkUrl": "https://github.com/Zero-william163/Task-lists/releases/download/v1.3.0/app-release.apk",
+  "changelog": "## TaskFlow v1.3.0 更新\n\n### 修复内容\n- ✅ 修复检查更新功能：更正 GitHub 仓库地址\n- ✅ 添加「已是最新版本」提示\n- ✅ 更新设置页面的 GitHub 链接",
   "forceUpdate": false,
-  "apkHash": ""
+  "apkHash": "34b2a18d733f1e70d58a3958e5a7b78aded58577437e16ddb2a731c769352807"
 }
