@@ -204,56 +204,89 @@ fun CategoryFilterChips(
         modifier = Modifier
             .fillMaxWidth()
             .horizontalScroll(rememberScrollState())
-            .padding(horizontal = 16.dp, vertical = 8.dp),
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
+            .padding(horizontal = 16.dp, vertical = 12.dp),
+        horizontalArrangement = Arrangement.spacedBy(10.dp)
     ) {
         categories.forEach { category ->
             when (category) {
                 "全部" -> {
                     val isSelected = !showCompleted && selectedCategory == null
-                    FilterChip(
-                        selected = isSelected,
+                    GradientFilterChip(
+                        label = category,
+                        isSelected = isSelected,
                         onClick = {
                             onCategorySelected(null)
                             if (showCompleted) {
                                 onToggleCompleted()
                             }
-                        },
-                        label = { Text(category) }
+                        }
                     )
                 }
                 "已完成" -> {
-                    FilterChip(
-                        selected = showCompleted,
+                    GradientFilterChip(
+                        label = category,
+                        isSelected = showCompleted,
                         onClick = onToggleCompleted,
-                        label = { Text(category) },
-                        leadingIcon = if (showCompleted) {
-                            {
-                                Icon(
-                                    Icons.Default.CheckCircle,
-                                    contentDescription = null,
-                                    modifier = Modifier.size(18.dp)
-                                )
-                            }
-                        } else null
+                        icon = if (showCompleted) Icons.Default.CheckCircle else null
                     )
                 }
                 else -> {
                     val isSelected = !showCompleted && selectedCategory == category
-                    FilterChip(
-                        selected = isSelected,
+                    GradientFilterChip(
+                        label = category,
+                        isSelected = isSelected,
                         onClick = {
                             onCategorySelected(category)
                             if (showCompleted) {
                                 onToggleCompleted()
                             }
-                        },
-                        label = { Text(category) }
+                        }
                     )
                 }
             }
         }
     }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun GradientFilterChip(
+    label: String,
+    isSelected: Boolean,
+    onClick: () -> Unit,
+    icon: androidx.compose.ui.graphics.vector.ImageVector? = null
+) {
+    FilterChip(
+        selected = isSelected,
+        onClick = onClick,
+        label = {
+            Text(
+                text = label,
+                style = MaterialTheme.typography.bodyMedium,
+                fontWeight = if (isSelected) androidx.compose.ui.text.font.FontWeight.SemiBold
+                else androidx.compose.ui.text.font.FontWeight.Normal
+            )
+        },
+        leadingIcon = icon?.let {
+            {
+                Icon(
+                    it,
+                    contentDescription = null,
+                    modifier = Modifier.size(18.dp)
+                )
+            }
+        },
+        shape = RoundedCornerShape(16.dp),
+        colors = FilterChipDefaults.filterChipColors(
+            selectedContainerColor = MaterialTheme.colorScheme.primary,
+            selectedLabelColor = MaterialTheme.colorScheme.onPrimary,
+            selectedLeadingIconColor = MaterialTheme.colorScheme.onPrimary
+        ),
+        border = FilterChipDefaults.filterChipBorder(
+            borderColor = MaterialTheme.colorScheme.outline.copy(alpha = 0.3f),
+            selectedBorderColor = MaterialTheme.colorScheme.primary
+        )
+    )
 }
 
 @Composable

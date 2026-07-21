@@ -1,8 +1,8 @@
 {
-  "versionCode": 5,
-  "versionName": "1.4.0",
-  "apkUrl": "https://github.com/Zero-william163/Task-lists/releases/download/v1.4.0/app-release.apk",
-  "changelog": "## TaskFlow v1.4.0 更新\n\n### 修复内容\n- ✅ 修复检查更新功能：更正 GitHub 仓库地址\n- ✅ 添加 release.json 配置文件，提高更新检测可靠性\n- ✅ 优化更新检测逻辑，release.json 失败时自动回退到 GitHub API\n- ✅ 更新设置页面的 GitHub 链接\n- ✅ 添加「已是最新版本」提示",
+  "versionCode": 6,
+  "versionName": "1.5.0",
+  "apkUrl": "https://github.com/Zero-william163/Task-lists/releases/download/v1.5.0/app-release.apk",
+  "changelog": "## TaskFlow v1.5.0 更新\n\n### UI 美化\n- ✅ 优化卡片设计：更大圆角、更强阴影、更清晰的布局\n- ✅ 美化分类筛选选项：统一选中态样式、半透明边框、圆角设计\n- ✅ 更新主题配色：使用现代化的 Indigo/Purple 配色方案\n- ✅ 优化编辑/删除按钮：圆角背景、合适的尺寸\n- ✅ 改进截止时间显示：添加图标、更清晰的视觉效果",
   "forceUpdate": false,
-  "apkHash": "1154de5a8d89e074f3dca5b5b5647d3bd56486b9b3c462479be760bd9ce23dca"
+  "apkHash": "89fa25e934529ed2b00929f4e74bb09e487379f1f3adc1a99c781bdfc71e9339"
 }
