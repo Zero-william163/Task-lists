@@ -21,8 +21,8 @@ import java.util.concurrent.TimeUnit
 
 object UpdateManager {
 
-    private const val GITHUB_API_URL = "https://api.github.com/repos/{owner}/{repo}/releases/latest"
-    private const val RELEASE_JSON_URL = "https://raw.githubusercontent.com/{owner}/{repo}/main/release.json"
+    private const val GITHUB_API_URL = "https://api.github.com/repos/Zero-william163/Task-lists/releases/latest"
+    private const val RELEASE_JSON_URL = "https://raw.githubusercontent.com/Zero-william163/Task-lists/main/release.json"
 
     private val client by lazy {
         OkHttpClient.Builder()
@@ -96,8 +96,7 @@ object UpdateManager {
     }
 
     private fun fetchReleaseConfig(): ReleaseConfig? {
-        val url = RELEASE_JSON_URL.replace("{owner}", "your-username").replace("{repo}", "TaskFlow")
-        val request = Request.Builder().url(url).build()
+        val request = Request.Builder().url(RELEASE_JSON_URL).build()
         return try {
             client.newCall(request).execute().use { response ->
                 if (response.isSuccessful) {
@@ -110,9 +109,8 @@ object UpdateManager {
     }
 
     private fun checkGitHubRelease(showNotification: Boolean): UpdateResult {
-        val url = GITHUB_API_URL.replace("{owner}", "your-username").replace("{repo}", "TaskFlow")
         val request = Request.Builder()
-            .url(url)
+            .url(GITHUB_API_URL)
             .header("Accept", "application/vnd.github.v3+json")
             .build()
 

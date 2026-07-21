@@ -29,6 +29,7 @@ fun SettingsScreen(onNavigateBack: () -> Unit) {
     var showUpdateDialog by remember { mutableStateOf(false) }
     var updateResult by remember { mutableStateOf<UpdateManager.UpdateResult?>(null) }
     var isChecking by remember { mutableStateOf(false) }
+    var noUpdateMessage by remember { mutableStateOf("") }
 
     Scaffold(
         topBar = {
@@ -67,17 +68,20 @@ fun SettingsScreen(onNavigateBack: () -> Unit) {
             SettingsSection(title = "更新") {
                 SettingsItem(
                     title = "检查更新",
-                    subtitle = if (isChecking) "正在检查..." else "点击检查新版本",
+                    subtitle = if (isChecking) "正在检查..." else noUpdateMessage.ifEmpty { "点击检查新版本" },
                     icon = Icons.Default.Refresh,
                     onClick = {
                         if (isChecking) return@SettingsItem
                         scope.launch {
                             isChecking = true
+                            noUpdateMessage = ""
                             val result = UpdateManager.checkForUpdate(context)
                             updateResult = result
                             isChecking = false
                             if (result.hasUpdate) {
                                 showUpdateDialog = true
+                            } else {
+                                noUpdateMessage = "已是最新版本"
                             }
                         }
                     }
@@ -97,12 +101,12 @@ fun SettingsScreen(onNavigateBack: () -> Unit) {
                 )
                 SettingsItem(
                     title = "GitHub 仓库",
-                    subtitle = "github.com/your-username/TaskFlow",
+                    subtitle = "github.com/Zero-william163/Task-lists",
                     icon = Icons.Filled.OpenInNew,
                     onClick = {
                         val intent = Intent(
                             Intent.ACTION_VIEW,
-                            Uri.parse("https://github.com/your-username/TaskFlow")
+                            Uri.parse("https://github.com/Zero-william163/Task-lists")
                         )
                         context.startActivity(intent)
                     }
@@ -114,7 +118,7 @@ fun SettingsScreen(onNavigateBack: () -> Unit) {
                     onClick = {
                         val intent = Intent(
                             Intent.ACTION_VIEW,
-                            Uri.parse("https://github.com/your-username/TaskFlow/blob/main/LICENSE")
+                            Uri.parse("https://github.com/Zero-william163/Task-lists/blob/main/LICENSE")
                         )
                         context.startActivity(intent)
                     }
