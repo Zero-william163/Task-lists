@@ -3,6 +3,7 @@ package com.taskflow.widget
 import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.glance.GlanceId
 import androidx.glance.GlanceModifier
 import androidx.glance.appwidget.GlanceAppWidget
@@ -14,7 +15,6 @@ import androidx.glance.text.FontWeight
 import androidx.glance.text.Text
 import androidx.glance.text.TextStyle
 import androidx.glance.unit.ColorProvider
-import androidx.glance.unit.sp
 import com.taskflow.data.local.TaskDatabase
 import com.taskflow.data.repository.TaskRepository
 import kotlinx.coroutines.flow.first

@@ -7,8 +7,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.automirrored.filled.OpenInNew
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.OpenInNew
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.*
@@ -36,7 +36,7 @@ fun SettingsScreen(onNavigateBack: () -> Unit) {
                 title = { Text("设置") },
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "返回")
+                        Icon(Icons.Filled.ArrowBack, contentDescription = "返回")
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -98,7 +98,7 @@ fun SettingsScreen(onNavigateBack: () -> Unit) {
                 SettingsItem(
                     title = "GitHub 仓库",
                     subtitle = "github.com/your-username/TaskFlow",
-                    icon = Icons.AutoMirrored.Filled.OpenInNew,
+                    icon = Icons.Filled.OpenInNew,
                     onClick = {
                         val intent = Intent(
                             Intent.ACTION_VIEW,
