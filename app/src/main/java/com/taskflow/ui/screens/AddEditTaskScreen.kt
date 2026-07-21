@@ -147,13 +147,15 @@ fun AddEditTaskScreen(
             DateTimeSelector(
                 label = "截止时间",
                 timestamp = dueDate,
-                onSelect = { dueDate = it }
+                onSelect = { dueDate = it },
+                showDate = true
             )
 
             DateTimeSelector(
                 label = "提醒时间",
                 timestamp = reminderTime,
-                onSelect = { reminderTime = it }
+                onSelect = { reminderTime = it },
+                showDate = false
             )
 
             Spacer(modifier = Modifier.weight(1f))
@@ -245,10 +247,12 @@ fun PriorityOption(
 fun DateTimeSelector(
     label: String,
     timestamp: Long?,
-    onSelect: (Long?) -> Unit
+    onSelect: (Long?) -> Unit,
+    showDate: Boolean = true
 ) {
     val context = LocalContext.current
-    val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
+    val dateFormatter = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
+    val timeFormatter = SimpleDateFormat("HH:mm", Locale.getDefault())
     var showClear by remember { mutableStateOf(false) }
 
     Row(
@@ -259,7 +263,9 @@ fun DateTimeSelector(
         Column(modifier = Modifier.weight(1f)) {
             Text(label, style = MaterialTheme.typography.titleSmall)
             Text(
-                text = timestamp?.let { formatter.format(Date(it)) } ?: "未设置",
+                text = timestamp?.let {
+                    if (showDate) dateFormatter.format(Date(it)) else timeFormatter.format(Date(it))
+                } ?: "未设置",
                 style = MaterialTheme.typography.bodyMedium,
                 color = if (timestamp != null) MaterialTheme.colorScheme.onSurface
                 else MaterialTheme.colorScheme.onSurfaceVariant
@@ -276,26 +282,40 @@ fun DateTimeSelector(
                     val calendar = Calendar.getInstance()
                     timestamp?.let { calendar.timeInMillis = it }
 
-                    DatePickerDialog(
-                        context,
-                        { _, year, month, day ->
-                            calendar.set(year, month, day)
-                            TimePickerDialog(
-                                context,
-                                { _, hour, minute ->
-                                    calendar.set(Calendar.HOUR_OF_DAY, hour)
-                                    calendar.set(Calendar.MINUTE, minute)
-                                    onSelect(calendar.timeInMillis)
-                                },
-                                calendar.get(Calendar.HOUR_OF_DAY),
-                                calendar.get(Calendar.MINUTE),
-                                true
-                            ).show()
-                        },
-                        calendar.get(Calendar.YEAR),
-                        calendar.get(Calendar.MONTH),
-                        calendar.get(Calendar.DAY_OF_MONTH)
-                    ).show()
+                    if (showDate) {
+                        DatePickerDialog(
+                            context,
+                            { _, year, month, day ->
+                                calendar.set(year, month, day)
+                                TimePickerDialog(
+                                    context,
+                                    { _, hour, minute ->
+                                        calendar.set(Calendar.HOUR_OF_DAY, hour)
+                                        calendar.set(Calendar.MINUTE, minute)
+                                        onSelect(calendar.timeInMillis)
+                                    },
+                                    calendar.get(Calendar.HOUR_OF_DAY),
+                                    calendar.get(Calendar.MINUTE),
+                                    true
+                                ).show()
+                            },
+                            calendar.get(Calendar.YEAR),
+                            calendar.get(Calendar.MONTH),
+                            calendar.get(Calendar.DAY_OF_MONTH)
+                        ).show()
+                    } else {
+                        TimePickerDialog(
+                            context,
+                            { _, hour, minute ->
+                                calendar.set(Calendar.HOUR_OF_DAY, hour)
+                                calendar.set(Calendar.MINUTE, minute)
+                                onSelect(calendar.timeInMillis)
+                            },
+                            calendar.get(Calendar.HOUR_OF_DAY),
+                            calendar.get(Calendar.MINUTE),
+                            true
+                        ).show()
+                    }
                 }
             ) {
                 Text("选择")
