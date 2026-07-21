@@ -5,6 +5,8 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -196,39 +198,60 @@ fun CategoryFilterChips(
     onCategorySelected: (String?) -> Unit,
     onToggleCompleted: () -> Unit
 ) {
-    val categories = listOf("全部") + Task.CATEGORIES
+    val categories = listOf("全部", "已完成") + Task.CATEGORIES
 
     Row(
         modifier = Modifier
             .fillMaxWidth()
+            .horizontalScroll(rememberScrollState())
             .padding(horizontal = 16.dp, vertical = 8.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        FilterChip(
-            selected = showCompleted,
-            onClick = onToggleCompleted,
-            label = { Text("已完成") },
-            leadingIcon = if (showCompleted) {
-                {
-                    Icon(
-                        Icons.Default.CheckCircle,
-                        contentDescription = null,
-                        modifier = Modifier.size(18.dp)
+        categories.forEach { category ->
+            when (category) {
+                "全部" -> {
+                    val isSelected = !showCompleted && selectedCategory == null
+                    FilterChip(
+                        selected = isSelected,
+                        onClick = {
+                            onCategorySelected(null)
+                            if (showCompleted) {
+                                onToggleCompleted()
+                            }
+                        },
+                        label = { Text(category) }
                     )
                 }
-            } else null
-        )
-
-        categories.forEach { category ->
-            val isSelected = !showCompleted && selectedCategory == category ||
-                    (category == "全部" && !showCompleted && selectedCategory == null)
-            FilterChip(
-                selected = isSelected,
-                onClick = {
-                    onCategorySelected(if (category == "全部") null else category)
-                },
-                label = { Text(category) }
-            )
+                "已完成" -> {
+                    FilterChip(
+                        selected = showCompleted,
+                        onClick = onToggleCompleted,
+                        label = { Text(category) },
+                        leadingIcon = if (showCompleted) {
+                            {
+                                Icon(
+                                    Icons.Default.CheckCircle,
+                                    contentDescription = null,
+                                    modifier = Modifier.size(18.dp)
+                                )
+                            }
+                        } else null
+                    )
+                }
+                else -> {
+                    val isSelected = !showCompleted && selectedCategory == category
+                    FilterChip(
+                        selected = isSelected,
+                        onClick = {
+                            onCategorySelected(category)
+                            if (showCompleted) {
+                                onToggleCompleted()
+                            }
+                        },
+                        label = { Text(category) }
+                    )
+                }
+            }
         }
     }
 }
