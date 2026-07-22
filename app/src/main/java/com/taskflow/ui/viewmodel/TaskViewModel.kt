@@ -45,6 +45,9 @@ class TaskViewModel(
     private val _selectedTask = MutableStateFlow<Task?>(null)
     val selectedTask: StateFlow<Task?> = _selectedTask.asStateFlow()
 
+    private var lastCategoryClickTime = 0L
+    private val categoryClickLock = Any()
+
     fun setSearchQuery(query: String) {
         _searchQuery.value = query
         if (query.isNotBlank()) {
@@ -53,20 +56,41 @@ class TaskViewModel(
         }
     }
 
-    fun setCategory(category: String?) {
-        _selectedCategory.value = category
-        if (category != null) {
-            _searchQuery.value = ""
-            _showCompleted.value = false
+    fun selectCategory(category: String?) {
+        val now = System.currentTimeMillis()
+        synchronized(categoryClickLock) {
+            if (now - lastCategoryClickTime < 150) return
+            lastCategoryClickTime = now
         }
+        _searchQuery.value = ""
+        _showCompleted.value = false
+        _selectedCategory.value = category
+    }
+
+    fun setCategory(category: String?) {
+        selectCategory(category)
+    }
+
+    fun switchFromCompletedToCategory(category: String?) {
+        val now = System.currentTimeMillis()
+        synchronized(categoryClickLock) {
+            if (now - lastCategoryClickTime < 150) return
+            lastCategoryClickTime = now
+        }
+        _searchQuery.value = ""
+        _showCompleted.value = false
+        _selectedCategory.value = category
     }
 
     fun toggleShowCompleted() {
-        _showCompleted.value = !_showCompleted.value
-        if (_showCompleted.value) {
-            _searchQuery.value = ""
-            _selectedCategory.value = null
+        val now = System.currentTimeMillis()
+        synchronized(categoryClickLock) {
+            if (now - lastCategoryClickTime < 150) return
+            lastCategoryClickTime = now
         }
+        _searchQuery.value = ""
+        _selectedCategory.value = null
+        _showCompleted.value = !_showCompleted.value
     }
 
     fun selectTask(task: Task?) {

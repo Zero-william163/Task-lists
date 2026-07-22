@@ -5,10 +5,13 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.horizontalScroll
-import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.CheckCircle
@@ -112,7 +115,8 @@ fun HomeScreen(
                 selectedCategory = selectedCategory,
                 showCompleted = showCompleted,
                 onCategorySelected = viewModel::setCategory,
-                onToggleCompleted = viewModel::toggleShowCompleted
+                onToggleCompleted = viewModel::toggleShowCompleted,
+                onSwitchFromCompleted = viewModel::switchFromCompletedToCategory
             )
 
             if (showCompleted && tasks.isNotEmpty()) {
@@ -196,18 +200,19 @@ fun CategoryFilterChips(
     selectedCategory: String?,
     showCompleted: Boolean,
     onCategorySelected: (String?) -> Unit,
-    onToggleCompleted: () -> Unit
+    onToggleCompleted: () -> Unit,
+    onSwitchFromCompleted: (String?) -> Unit = {}
 ) {
     val categories = listOf("全部", "已完成") + Task.CATEGORIES
+    val lazyListState = rememberLazyListState()
 
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .horizontalScroll(rememberScrollState())
-            .padding(horizontal = 16.dp, vertical = 12.dp),
+    LazyRow(
+        state = lazyListState,
+        modifier = Modifier.fillMaxWidth(),
+        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 12.dp),
         horizontalArrangement = Arrangement.spacedBy(10.dp)
     ) {
-        categories.forEach { category ->
+        items(categories) { category ->
             when (category) {
                 "全部" -> {
                     val isSelected = !showCompleted && selectedCategory == null
@@ -215,9 +220,10 @@ fun CategoryFilterChips(
                         label = category,
                         isSelected = isSelected,
                         onClick = {
-                            onCategorySelected(null)
                             if (showCompleted) {
-                                onToggleCompleted()
+                                onSwitchFromCompleted(null)
+                            } else {
+                                onCategorySelected(null)
                             }
                         }
                     )
@@ -236,9 +242,10 @@ fun CategoryFilterChips(
                         label = category,
                         isSelected = isSelected,
                         onClick = {
-                            onCategorySelected(category)
                             if (showCompleted) {
-                                onToggleCompleted()
+                                onSwitchFromCompleted(category)
+                            } else {
+                                onCategorySelected(category)
                             }
                         }
                     )
@@ -248,7 +255,6 @@ fun CategoryFilterChips(
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GradientFilterChip(
     label: String,
@@ -256,37 +262,46 @@ fun GradientFilterChip(
     onClick: () -> Unit,
     icon: androidx.compose.ui.graphics.vector.ImageVector? = null
 ) {
-    FilterChip(
-        selected = isSelected,
-        onClick = onClick,
-        label = {
+    Card(
+        shape = RoundedCornerShape(16.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = if (isSelected) MaterialTheme.colorScheme.primary
+            else MaterialTheme.colorScheme.surface
+        ),
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = if (isSelected) 4.dp else 2.dp
+        ),
+        modifier = Modifier
+            .clickable { onClick() }
+    ) {
+        Row(
+            modifier = Modifier
+                .defaultMinSize(minWidth = 56.dp, minHeight = 40.dp)
+                .padding(horizontal = 16.dp, vertical = 8.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
+        ) {
+            icon?.let {
+                Icon(
+                    it,
+                    contentDescription = null,
+                    modifier = Modifier
+                        .size(18.dp)
+                        .padding(end = 6.dp),
+                    tint = if (isSelected) MaterialTheme.colorScheme.onPrimary
+                    else MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
             Text(
                 text = label,
                 style = MaterialTheme.typography.bodyMedium,
                 fontWeight = if (isSelected) androidx.compose.ui.text.font.FontWeight.SemiBold
-                else androidx.compose.ui.text.font.FontWeight.Normal
+                else androidx.compose.ui.text.font.FontWeight.Normal,
+                color = if (isSelected) MaterialTheme.colorScheme.onPrimary
+                else MaterialTheme.colorScheme.onSurfaceVariant
             )
-        },
-        leadingIcon = icon?.let {
-            {
-                Icon(
-                    it,
-                    contentDescription = null,
-                    modifier = Modifier.size(18.dp)
-                )
-            }
-        },
-        shape = RoundedCornerShape(16.dp),
-        colors = FilterChipDefaults.filterChipColors(
-            selectedContainerColor = MaterialTheme.colorScheme.primary,
-            selectedLabelColor = MaterialTheme.colorScheme.onPrimary,
-            selectedLeadingIconColor = MaterialTheme.colorScheme.onPrimary
-        ),
-        border = FilterChipDefaults.filterChipBorder(
-            borderColor = MaterialTheme.colorScheme.outline.copy(alpha = 0.3f),
-            selectedBorderColor = MaterialTheme.colorScheme.primary
-        )
-    )
+        }
+    }
 }
 
 @Composable
