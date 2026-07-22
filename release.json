@@ -1,8 +1,8 @@
 {
-  "versionCode": 12,
-  "versionName": "2.0.1",
-  "apkUrl": "https://github.com/Zero-william163/Task-lists/releases/download/v2.0.1/app-release.apk",
-  "changelog": "## TaskFlow v2.0.1 - 修复更新检测\n\n### 修复\n- ✅ 修复 release.json 未同步导致检查更新无法发现新版本的问题\n- ✅ 更新检测严格使用 versionCode 整数比较\n- ✅ 添加时间戳和 no-cache 头，防止静态文件缓存\n- ✅ 异常不再默认显示「已是最新版本」，改为显示真实错误原因\n- ✅ 新增 GitHub Releases API 作为 fallback\n\n### 包含 2.0.0 全部视觉升级\n- 现代极简高级设计风格\n- 全新首页、任务卡片、优先级选择器\n- 新增统计页面\n- 优化设置页面和小组件",
+  "versionCode": 13,
+  "versionName": "2.1.0",
+  "apkUrl": "https://github.com/Zero-william163/Task-lists/releases/download/v2.1.0/app-release.apk",
+  "changelog": "## TaskFlow v2.1.0 - Proton VPN 风格小组件\n\n### 全新 Glance 小组件\n- 使用 Jetpack Glance 构建现代声明式小组件\n- Proton VPN 风格：状态驱动背景色\n- 实时显示待完成任务数量和高优先级提示\n- 点击跳转到主应用\n\n### 包含 2.0.0 全部视觉升级",
   "forceUpdate": false,
-  "apkHash": "413e2e56b363976f4a449a0ffb023ca7f87efa895b9cd47cea5c10d8e9c09556"
+  "apkHash": "9c84286ed875841b51ff6f808eed93a4ed31d55fbe5f56c28e2efbbb27fec4a4"
 }
