@@ -1,14 +1,19 @@
 package com.taskflow.ui.viewmodel
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.taskflow.data.model.Task
 import com.taskflow.data.repository.TaskRepository
+import com.taskflow.widget.TaskFlowWidgetReceiver
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
-class TaskViewModel(private val repository: TaskRepository) : ViewModel() {
+class TaskViewModel(
+    private val repository: TaskRepository,
+    private val appContext: Context
+) : ViewModel() {
 
     private val _searchQuery = MutableStateFlow("")
     val searchQuery: StateFlow<String> = _searchQuery.asStateFlow()
@@ -71,6 +76,7 @@ class TaskViewModel(private val repository: TaskRepository) : ViewModel() {
     fun addTask(task: Task, onResult: ((Long) -> Unit)? = null) {
         viewModelScope.launch {
             val id = repository.insertTask(task)
+            updateWidget()
             onResult?.invoke(id)
         }
     }
@@ -78,12 +84,14 @@ class TaskViewModel(private val repository: TaskRepository) : ViewModel() {
     fun updateTask(task: Task) {
         viewModelScope.launch {
             repository.updateTask(task)
+            updateWidget()
         }
     }
 
     fun deleteTask(task: Task) {
         viewModelScope.launch {
             repository.deleteTask(task)
+            updateWidget()
         }
     }
 
@@ -94,12 +102,14 @@ class TaskViewModel(private val repository: TaskRepository) : ViewModel() {
                 completedAt = if (!task.isCompleted) System.currentTimeMillis() else null
             )
             repository.updateTask(updated)
+            updateWidget()
         }
     }
 
     fun deleteAllCompleted() {
         viewModelScope.launch {
             repository.deleteAllCompleted()
+            updateWidget()
         }
     }
 
@@ -109,11 +119,18 @@ class TaskViewModel(private val repository: TaskRepository) : ViewModel() {
         }
     }
 
-    class Factory(private val repository: TaskRepository) : ViewModelProvider.Factory {
+    private fun updateWidget() {
+        TaskFlowWidgetReceiver.updateAllWidgets(appContext)
+    }
+
+    class Factory(
+        private val repository: TaskRepository,
+        private val appContext: Context
+    ) : ViewModelProvider.Factory {
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(TaskViewModel::class.java)) {
-                return TaskViewModel(repository) as T
+                return TaskViewModel(repository, appContext) as T
             }
             throw IllegalArgumentException("Unknown ViewModel class")
         }

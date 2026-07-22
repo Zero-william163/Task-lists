@@ -52,7 +52,8 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun TaskFlowApp(repository: TaskRepository) {
     val navController = rememberNavController()
-    val viewModel: TaskViewModel = viewModel(factory = TaskViewModel.Factory(repository))
+    val context = androidx.compose.ui.platform.LocalContext.current
+    val viewModel: TaskViewModel = viewModel(factory = TaskViewModel.Factory(repository, context.applicationContext))
 
     NavHost(
         navController = navController,

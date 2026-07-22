@@ -1,8 +1,8 @@
 {
-  "versionCode": 6,
-  "versionName": "1.5.0",
-  "apkUrl": "https://github.com/Zero-william163/Task-lists/releases/download/v1.5.0/app-release.apk",
-  "changelog": "## TaskFlow v1.5.0 更新\n\n### UI 美化\n- ✅ 优化卡片设计：更大圆角、更强阴影、更清晰的布局\n- ✅ 美化分类筛选选项：统一选中态样式、半透明边框、圆角设计\n- ✅ 更新主题配色：使用现代化的 Indigo/Purple 配色方案\n- ✅ 优化编辑/删除按钮：圆角背景、合适的尺寸\n- ✅ 改进截止时间显示：添加图标、更清晰的视觉效果",
+  "versionCode": 7,
+  "versionName": "1.6.0",
+  "apkUrl": "https://github.com/Zero-william163/Task-lists/releases/download/v1.6.0/app-release.apk",
+  "changelog": "## TaskFlow v1.6.0 更新\n\n### 新功能\n- ✅ 全新桌面小组件：使用传统 RemoteViews + ListView 实现，稳定可靠\n- ✅ 小组件列出所有未完成任务，显示标题、分类、截止时间和优先级颜色标识\n- ✅ 点击小组件标题或任务项可直接打开 App\n- ✅ 任务变更后自动刷新小组件内容\n- ✅ 手机重启后自动恢复小组件显示\n- ✅ 小组件支持自由调整大小（最小 3x3）\n- ✅ 紫色渐变背景，与 App 主题风格一致",
   "forceUpdate": false,
-  "apkHash": "89fa25e934529ed2b00929f4e74bb09e487379f1f3adc1a99c781bdfc71e9339"
+  "apkHash": "21819c82be41775a9aa6a2782eb38eda374197689ca5e36787368fecb587bbdc"
 }

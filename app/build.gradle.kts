@@ -12,8 +12,8 @@ android {
         applicationId = "com.taskflow"
         minSdk = 29
         targetSdk = 34
-        versionCode = 6
-        versionName = "1.5.0"
+        versionCode = 7
+        versionName = "1.6.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -87,8 +87,6 @@ dependencies {
     implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
 
     implementation("com.google.code.gson:gson:2.10.1")
-
-    implementation("androidx.glance:glance-appwidget:1.0.0")
 
     implementation("androidx.core:core-splashscreen:1.0.1")
 

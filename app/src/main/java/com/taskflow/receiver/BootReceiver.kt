@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import com.taskflow.data.local.TaskDatabase
 import com.taskflow.data.repository.TaskRepository
+import com.taskflow.widget.TaskFlowWidgetReceiver
 import com.taskflow.worker.ReminderWorker
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -26,6 +27,8 @@ class BootReceiver : BroadcastReceiver() {
                         }
                     }
                 }
+
+                TaskFlowWidgetReceiver.updateAllWidgets(context)
             }
         }
     }
