@@ -1,8 +1,8 @@
 {
-  "versionCode": 11,
-  "versionName": "2.0.0",
-  "apkUrl": "https://github.com/Zero-william163/Task-lists/releases/download/v2.0.0/app-release.apk",
-  "changelog": "## TaskFlow v2.0.0 - 全新视觉升级\n\n### 全新设计\n- 全面升级为现代极简、高级精致的设计风格\n- 全新配色系统：柔和温暖的浅色模式 + 深邃优雅的深色模式\n- 统一的圆角、阴影、间距和排版系统\n\n### 首页全新设计\n- 顶部精美问候语区域，根据时间自动显示「早上好/下午好/晚上好」\n- 实时日期显示\n- 精美统计卡片：全部任务/已完成/待完成\n- 全新搜索栏设计\n- 现代分类筛选 Chip\n- 全新任务卡片设计：左侧彩色优先级指示条、精美复选框动画\n- 精美的空状态页面\n- 现代 FAB 按钮设计\n\n### 新增任务页面\n- 全新表单设计，大圆角输入框\n- 精美卡片式优先级选择器\n\n### 新增统计页面\n- 简洁现代的统计卡片\n- 优先级和分类分布条形图\n\n### 小组件升级\n- 更精致的布局和视觉层次",
+  "versionCode": 12,
+  "versionName": "2.0.1",
+  "apkUrl": "https://github.com/Zero-william163/Task-lists/releases/download/v2.0.1/app-release.apk",
+  "changelog": "## TaskFlow v2.0.1 - 修复更新检测\n\n### 修复\n- ✅ 修复 release.json 未同步导致检查更新无法发现新版本的问题\n- ✅ 更新检测严格使用 versionCode 整数比较\n- ✅ 添加时间戳和 no-cache 头，防止静态文件缓存\n- ✅ 异常不再默认显示「已是最新版本」，改为显示真实错误原因\n- ✅ 新增 GitHub Releases API 作为 fallback\n\n### 包含 2.0.0 全部视觉升级\n- 现代极简高级设计风格\n- 全新首页、任务卡片、优先级选择器\n- 新增统计页面\n- 优化设置页面和小组件",
   "forceUpdate": false,
-  "apkHash": "8a751cb5dcabf19ced68fd914b2a4d0955d6e107c6b89b8f7f54bba76001bd7b"
+  "apkHash": "413e2e56b363976f4a449a0ffb023ca7f87efa895b9cd47cea5c10d8e9c09556"
 }
