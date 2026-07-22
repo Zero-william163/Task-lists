@@ -1,8 +1,8 @@
 {
-  "versionCode": 8,
-  "versionName": "1.7.0",
-  "apkUrl": "https://github.com/Zero-william163/Task-lists/releases/download/v1.7.0/app-release.apk",
-  "changelog": "## TaskFlow v1.7.0 更新\n\n### 修复\n- ✅ 修复分类筛选按钮间歇性无响应问题\n- ✅ 使用 LazyRow 替代 Row+horizontalScroll，优化滑动与点击冲突\n- ✅ 用 Card+clickable 重写 Chip 组件，确保点击热区和水波纹反馈\n- ✅ 优化状态更新顺序，避免中间状态不一致\n- ✅ 添加 150ms 防抖，防止快速连续点击导致状态异常\n- ✅ 新增 switchFromCompletedToCategory 方法，从已完成切换分类时原子更新\n- ✅ 增大最小点击热区（40dp 高度），符合 Material Design 规范",
+  "versionCode": 9,
+  "versionName": "1.8.0",
+  "apkUrl": "https://github.com/Zero-william163/Task-lists/releases/download/v1.8.0/app-release.apk",
+  "changelog": "## TaskFlow v1.8.0 更新\n\n### 优化\n- ✅ 截止时间仅显示日期（yyyy-MM-dd），不再显示具体时间\n- ✅ 截止时间选择器只弹出日期选择，默认时间设为 00:00\n- ✅ 任务列表中截止时间显示格式改为 MM-dd\n- ✅ 小组件中截止时间显示格式改为 MM-dd",
   "forceUpdate": false,
-  "apkHash": "418e10691b8849077a1b7e6c49196fd137b2efeca34d3fa863e1825e2dc9dff9"
+  "apkHash": "d30c71c7caad35ab4caa6fabe1f2e49b64b89f74ef9728280837ceb5ed1f12e4"
 }

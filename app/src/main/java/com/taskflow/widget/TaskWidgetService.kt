@@ -59,7 +59,7 @@ class TaskWidgetFactory(
         val categoryText = buildString {
             append(task.category)
             task.dueDate?.let { due ->
-                val sdf = SimpleDateFormat("MM-dd HH:mm", Locale.getDefault())
+                val sdf = SimpleDateFormat("MM-dd", Locale.getDefault())
                 append(" · ").append(sdf.format(Date(due)))
             }
         }

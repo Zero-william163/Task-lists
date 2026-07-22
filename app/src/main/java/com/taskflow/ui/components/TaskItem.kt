@@ -147,7 +147,7 @@ fun TaskItem(
                 }
 
                 task.dueDate?.let { due ->
-                    val dateText = SimpleDateFormat("MM-dd HH:mm", Locale.getDefault()).format(Date(due))
+                    val dateText = SimpleDateFormat("MM-dd", Locale.getDefault()).format(Date(due))
                     val isOverdue = due < System.currentTimeMillis() && !task.isCompleted
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
