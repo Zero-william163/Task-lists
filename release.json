@@ -1,8 +1,8 @@
 {
-  "versionCode": 9,
-  "versionName": "1.8.0",
-  "apkUrl": "https://github.com/Zero-william163/Task-lists/releases/download/v1.8.0/app-release.apk",
-  "changelog": "## TaskFlow v1.8.0 更新\n\n### 优化\n- ✅ 截止时间仅显示日期（yyyy-MM-dd），不再显示具体时间\n- ✅ 截止时间选择器只弹出日期选择，默认时间设为 00:00\n- ✅ 任务列表中截止时间显示格式改为 MM-dd\n- ✅ 小组件中截止时间显示格式改为 MM-dd",
+  "versionCode": 11,
+  "versionName": "2.0.0",
+  "apkUrl": "https://github.com/Zero-william163/Task-lists/releases/download/v2.0.0/app-release.apk",
+  "changelog": "## TaskFlow v2.0.0 - 全新视觉升级\n\n### 全新设计\n- 全面升级为现代极简、高级精致的设计风格\n- 全新配色系统：柔和温暖的浅色模式 + 深邃优雅的深色模式\n- 统一的圆角、阴影、间距和排版系统\n\n### 首页全新设计\n- 顶部精美问候语区域，根据时间自动显示「早上好/下午好/晚上好」\n- 实时日期显示\n- 精美统计卡片：全部任务/已完成/待完成\n- 全新搜索栏设计\n- 现代分类筛选 Chip\n- 全新任务卡片设计：左侧彩色优先级指示条、精美复选框动画\n- 精美的空状态页面\n- 现代 FAB 按钮设计\n\n### 新增任务页面\n- 全新表单设计，大圆角输入框\n- 精美卡片式优先级选择器\n\n### 新增统计页面\n- 简洁现代的统计卡片\n- 优先级和分类分布条形图\n\n### 小组件升级\n- 更精致的布局和视觉层次",
   "forceUpdate": false,
-  "apkHash": "d30c71c7caad35ab4caa6fabe1f2e49b64b89f74ef9728280837ceb5ed1f12e4"
+  "apkHash": "8a751cb5dcabf19ced68fd914b2a4d0955d6e107c6b89b8f7f54bba76001bd7b"
 }
